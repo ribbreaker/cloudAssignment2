@@ -13,9 +13,9 @@ type Species struct {
 	Phylum         string `json:"phylum"`
 	Order          string `json:"order"`
 	Family         string `json:"family"`
-	Genus          string `json:"genus"`
-	ScientificName string `json:"scientific name"`
-	CanonicalName  string `json:"canonical name"`
+	Genus          string `json:"genusOrAbove"`
+	ScientificName string `json:"scientificName"`
+	CanonicalName  string `json:"canonicalName"`
 	Year           string `json:"year"`
 }
 
@@ -32,7 +32,7 @@ func speciesHandler(w http.ResponseWriter, r *http.Request) {
 	if len(speciesKey) == 0 {
 		http.Error(w, "No species key found", http.StatusBadRequest)
 	}
-	//maybe fjern sprintf
+
 	resp, err := http.Get("http://api.gbif.org/v1/species/" + speciesKey)
 	if err != nil {
 		log.Fatalln(err)
@@ -41,9 +41,9 @@ func speciesHandler(w http.ResponseWriter, r *http.Request) {
 	var speciesData Species
 	_ = json.NewDecoder(resp.Body).Decode(&speciesData)
 
-	resp, err2 := http.Get("http://api.gbif.org/v1/species/" + speciesKey + "/name")
-	if err2 != nil {
-		log.Fatalln(err2)
+	resp, err = http.Get("http://api.gbif.org/v1/species/" + speciesKey + "/name")
+	if err != nil {
+		log.Fatalln(err)
 	}
 
 	var speciesYear SpeciesYear
