@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 )
 
@@ -39,6 +40,7 @@ func countryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 
+	countries := make 
 
 	//restcountries
 	resp, err := http.Get("https://restcountries.eu/rest/v2/alpha/" + country_identifier)
