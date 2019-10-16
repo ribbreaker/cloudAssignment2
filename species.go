@@ -41,9 +41,9 @@ func speciesHandler(w http.ResponseWriter, r *http.Request) {
 	var speciesData Species
 	_ = json.NewDecoder(resp.Body).Decode(&speciesData)
 
-	resp, err2 := http.Get("http://api.gbif.org/v1/species/" + speciesKey + "/name")
-	if err2 != nil {
-		log.Fatalln(err2)
+	resp, err = http.Get("http://api.gbif.org/v1/species/" + speciesKey + "/name")
+	if err != nil {
+		log.Fatalln(err)
 	}
 
 	var speciesYear SpeciesYear

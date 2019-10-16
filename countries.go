@@ -4,34 +4,32 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-)
 
-//CountriesStorage something something link wont stop bothering me
-type CountriesStorage interface {
-}
+)
 
 //Country more like go fuck yourself
 type Country struct {
-	Code        string    `json:"code"`        //2-letter ISO format country code
-	CountryName string    `json:"countryname"` //english human-readable country name
-	CountryFlag string    `json:"countryflag"`
-	Species     []Species `json:"species"`
-	SpeciesKey  []string  `json:"specieskey"`
+	//2-letter ISO format country code
+	Code string `json:"countryCode"`
+	//english human-readable country name
+	CountryName string `json:"countryname"`
+	//Country flag
+	CountryFlag string `json:"flag"`
+	//Species
+	Species []Species `json:"species"`
+	//Species key
+	SpeciesKey []string `json:"speciesKey"`
 }
 
-type allCountries []Country
-
-//KeysResponse should have a comment or something
-type KeysResponse struct {
+type CountryResponse struct{
 	Collection []Country
 }
 
+
 //List a given number of species entries by country
 func countryHandler(w http.ResponseWriter, r *http.Request) {
-
-	//limit
-
-	/*limit := 20
+	country_identifier := r.URL.Path[25:]
+	var limit = 20
 	if r.URL.Query()["limit"] != nil {
 		customLimit := r.URL.Query()["limit"][0]
 		customLimitInt, err := strconv.Atoi(customLimit)
@@ -39,10 +37,19 @@ func countryHandler(w http.ResponseWriter, r *http.Request) {
 			limit = customLimitInt
 		}
 	}
-	*/
-	url := r.RequestURI
 
-	resp, err := http.Get(url)
+
+
+	//restcountries
+	resp, err := http.Get("https://restcountries.eu/rest/v2/alpha/" + country_identifier)
+	if err != nil {
+		//handle error
+		fmt.Println("Error parsing request", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	resp, err = http.Get("http://api.gbif.org/v1/occurrence/search?country=" + country_identifier + "&limit=" + strconv.Itoa(limit))
 	if err != nil {
 		//handle error
 		fmt.Println("Error parsing request", err)
@@ -52,6 +59,8 @@ func countryHandler(w http.ResponseWriter, r *http.Request) {
 
 	//resp.body JSON
 	country := &Country{}
+
+	fmt.Println(resp.Body, "<-- resp body")
 	err = json.NewDecoder(resp.Body).Decode(country)
 	if err != nil {
 		//handle error
