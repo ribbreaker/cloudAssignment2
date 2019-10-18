@@ -91,7 +91,7 @@ func countryHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 	}*/
-	Var m = make(map[Species]int)
+//	Var m = make(map[Species]int)
 
 	err = json.NewDecoder(resp.Body).Decode(country)
 	if err != nil {
