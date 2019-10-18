@@ -1,4 +1,4 @@
-package main
+/*package main
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ func diagnosticHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	/**/
+	
 	euro, err := http.Get("https://restcountries.eu/rest/v2/alpha/VA")
 	if err != nil {
 		log.Fatalln(err)
@@ -37,3 +37,4 @@ func diagnosticHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Diagnostics:\nStatus for gbif: %d\nStatus for restcountry: %d\nVersion: v1\nTime since last restart %d\n",
 		diagnosData.statusGBIF, diagnosData.restCountry, bigTime)
 }
+*/

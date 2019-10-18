@@ -32,9 +32,9 @@ func countryHandler(w http.ResponseWriter, r *http.Request) {
 	countryIdentifier := r.URL.Path[25:]
 
 	// Country codes are two characters long, if not Error
-	if len(countryCode) != 2 {
+	/*if len(countryCode) != 2 {
 		http.Error(w, "Wrong country code used", http.StatusBadRequest)
-	}
+	}*/
 
 	
 	var limit = 20
@@ -195,3 +195,4 @@ func countryHandler (w http.ResponseWriter, r *http.Request) {
 	_ = json.NewEncoder(w).Encode(countryData)
 	fmt.Printf("%s\n", countryData.Code)
 }
+*/
