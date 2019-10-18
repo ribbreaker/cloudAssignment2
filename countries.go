@@ -181,12 +181,13 @@ func countryHandler (w http.ResponseWriter, r *http.Request) {
 
 	}
 	fmt.Printf("for append -1: %d\n", len(resultData.Results))
-/*
+
+
 	for _, i := range countryData.SpeciesKey {
 		if resultData.Results[i].Key == countryData.SpeciesKey[i]{
 		}
 	}
-*/
+
 
 	// This prints the json struct to the website
 	fmt.Printf("slutt encode\n")
@@ -194,4 +195,3 @@ func countryHandler (w http.ResponseWriter, r *http.Request) {
 	_ = json.NewEncoder(w).Encode(countryData)
 	fmt.Printf("%s\n", countryData.Code)
 }
-*/
