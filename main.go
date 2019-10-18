@@ -17,17 +17,17 @@ func diagnosticHandler(w http.ResponseWriter, r *http.Request) {
 	resp.Body.Close()
 }
 func main() {
-	//port := os.Getenv("PORT")
+	port := os.Getenv("PORT")
 
-	//	if port == "" {
-	//	log.Fatal("$PORT must be set")
-	//}
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
 
 	http.HandleFunc("/conservation/v1/species/", speciesHandler)
 	http.HandleFunc("/conservation/v1/country/", countryHandler)
 	http.HandleFunc("/conservation/v1/diag/", diagnosticHandler)
 	//for testing
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	//log.Fatal(http.ListenAndServe(":8080", nil))
 	//for heroku
-	//log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
