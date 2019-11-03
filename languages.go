@@ -28,7 +28,7 @@ func LanguagesHandler(w http.ResponseWriter, r *http.Request) {
 			payload = nil
 		}
 		// exits the program if the payload is really bad
-		if err != nil {
+		else if err != nil {
 			http.Error(w, "Payload is bad", http.StatusBadRequest)
 			return
 		}
