@@ -1,1 +1,1 @@
-web: cloudAssignment1
+web: cloudAssignment2
