@@ -20,7 +20,7 @@ func WebHooksHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodGet:
 
 		webHookId := ""
-		webHookId = r.URL.Path[23:]
+		webHookId = r.URL.Path[22:]
 		var iteration *firestore.DocumentIterator
 		var webhook Webhook
 		var listWebhook []Webhook
