@@ -13,7 +13,7 @@ import (
 func (db *FirestoreDatabase) Init() error {
 	db.Ctx = context.Background()
 	var err error
-	sa := option.WithCredentialsFile("./cloudassignment2-fed1b-firebase-adminsdk-y5tr0-28e4befe7b.json")
+	sa := option.WithCredentialsFile("./cloudassignment2-f6ffb-firebase-adminsdk-0s3q7-af72ed8b91.json")
 	db.Client, err = firestore.NewClient(db.Ctx, db.ProjectID, sa)
 	if err != nil {
 		fmt.Printf("Error in FirebaseDatabase.Init() function: %v\n", err)

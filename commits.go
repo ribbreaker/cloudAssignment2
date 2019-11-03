@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func commitsHandler(w http.ResponseWriter, r *http.Request) {
+func CommitsHandler(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == http.MethodGet {
 		auth := authFinder(r)
@@ -76,27 +76,27 @@ func commitsHandler(w http.ResponseWriter, r *http.Request) {
 					log.Fatalln(err)
 				}
 
-				err = json.NewDecoder(resp.Body).Decode(&repoInfo)
+				err = json.NewDecoder(resp.Body).Decode(&repo)
 				if err != nil {
 					log.Fatalln(err)
 				}
-				repoInfo.Commits = bigValue
+				repo.Commits = bigValue
 
 				// puts the biggest value in the language array struct
-				comStruct.Repos = append(comStruct.Repos, repoInfo)
+				commit.Repos = append(commit.Repos, repo)
 				delete(commitsNum, bigKey)
 			}
 
 			// sets auth bool to proper value
 			if auth == "" {
-				comStruct.Auth = false
+				commit.Auth = false
 			} else {
-				comStruct.Auth = true
+				commit.Auth = true
 			}
 
 			//adds header and encodes the languages
 			w.Header().Add("content-type", "application/json")
-			err := json.NewEncoder(w).Encode(comStruct)
+			err := json.NewEncoder(w).Encode(commit)
 			if err != nil {
 				log.Fatalln(err)
 			}

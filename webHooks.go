@@ -16,7 +16,7 @@ func WebHooksHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 
-		//GET
+	//GET
 	case http.MethodGet:
 
 		webHookId := ""
@@ -28,26 +28,25 @@ func WebHooksHandler(w http.ResponseWriter, r *http.Request) {
 		// if the id is empty, put only the id in the iteration
 		if webHookId != "" {
 			iteration = Db.Client.Collection("webhooks").Where("ID", "==", webHookId).Documents(Db.Ctx)
-		}
-		// else put all 
-		else { 
+			//else put all
+		} else {
 			iteration = Db.Client.Collection("webhooks").Documents(Db.Ctx)
 		}
-		
+
 		// loops through the document
 		for {
-			doc, err := iteration.Next() 
+			doc, err := iteration.Next()
 			//exit once it's finished
 			if err == iterator.Done {
-				break 
+				break
 			}
 			//exit if the iteration fails
-			if err != nil { 
+			if err != nil {
 				log.Fatalf("Failed to iterate: %v", err)
 			}
 			//add to the array if it got this far
 			if doc != nil {
-				err = doc.DataTo(&webhook)                
+				err = doc.DataTo(&webhook)
 				listWebhook = append(listWebhook, webhook)
 			}
 		}
@@ -68,7 +67,7 @@ func WebHooksHandler(w http.ResponseWriter, r *http.Request) {
 		deleteHook.Id = webhookIdentifier
 
 		//Delete it from the database
-		err := Db.Delete(&deleteHook) 
+		err := Db.Delete(&deleteHook)
 		if err != nil {
 			log.Fatal(err)
 		}
